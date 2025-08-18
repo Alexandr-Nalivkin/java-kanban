@@ -1,15 +1,27 @@
-import java.util.Objects;
+package Tasks;
 
 public class Task {
 
     protected String name;
     protected String description;
     protected int id;
-    protected TaskStatus status;
+    protected TaskStatus status = TaskStatus.NEW;
 
-    public Task(String name, String description, TaskStatus status) {
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public Task(String name, int id, String description) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+    }
+
+    public Task(String name, String description, int id, TaskStatus status) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
         this.status = status;
     }
 
@@ -50,23 +62,17 @@ public class Task {
         if (o == null || getClass() != o.getClass()) return false;
 
         Task task = (Task) o;
-        return id == task.id && Objects.equals(name, task.name) &&
-                Objects.equals(description, task.description) &&
-                status == task.status;
+        return id == task.id;
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(name);
-        result = 31 * result + Objects.hashCode(description);
-        result = 31 * result + id;
-        result = 31 * result + Objects.hashCode(status);
-        return result;
+        return id;
     }
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "Tasks.Task{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
