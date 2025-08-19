@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 public class Task {
 
@@ -13,15 +13,12 @@ public class Task {
     }
 
     public Task(String name, int id, String description) {
-        this.name = name;
-        this.description = description;
+        this(name, description);
         this.id = id;
     }
 
     public Task(String name, String description, int id, TaskStatus status) {
-        this.name = name;
-        this.description = description;
-        this.id = id;
+        this(name, id, description);
         this.status = status;
     }
 

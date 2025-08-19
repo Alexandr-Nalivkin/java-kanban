@@ -1,9 +1,9 @@
-package Manager;
+package manager;
 
-import Tasks.Epic;
-import Tasks.Subtask;
-import Tasks.Task;
-import Tasks.TaskStatus;
+import tasks.Epic;
+import tasks.Subtask;
+import tasks.Task;
+import tasks.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,10 +14,6 @@ public class TaskManager {
     private HashMap<Integer, Task> tasks = new HashMap<>();
     private HashMap<Integer, Epic> epics = new HashMap<>();
     private HashMap<Integer, Subtask> subtasks = new HashMap<>();
-
-    private int newId() {
-        return ++id;
-    }
 
     public void createNewTask(Task task) {
         int taskId = newId();
@@ -32,13 +28,13 @@ public class TaskManager {
     }
 
     public void createNewSubtask(Subtask subtask) {
-        int subtaskId = newId();
-        subtask.setId(subtaskId);
-        subtasks.put(subtaskId, subtask);
         int epicId = subtask.getEpicId();
         if (!epics.containsKey(epicId)) {
             System.out.println("Эпик с id " + epicId + " не существует.");
         } else {
+            int subtaskId = newId();
+            subtask.setId(subtaskId);
+            subtasks.put(subtaskId, subtask);
             ArrayList<Integer> subtaskIds = epics.get(epicId).getSubTaskIds();
             subtaskIds.add(subtaskId);
             checkEpicStatus(epicId);
@@ -135,10 +131,18 @@ public class TaskManager {
     }
 
     public void removeSubtaskById(int subtaskIdForRemove) {
-        int epicId = subtasks.get(subtaskIdForRemove).getEpicId();
-        getEpicById(epicId).removeSubTaskId(getSubtaskById(subtaskIdForRemove));
-        subtasks.remove(subtaskIdForRemove);
-        checkEpicStatus(epicId);
+        if (!subtasks.containsKey(subtaskIdForRemove)) {
+            System.out.println("Подзадачи с id " + subtaskIdForRemove + " нет в перечне.");
+        } else {
+            int epicId = subtasks.get(subtaskIdForRemove).getEpicId();
+            getEpicById(epicId).removeSubTaskId(getSubtaskById(subtaskIdForRemove));
+            subtasks.remove(subtaskIdForRemove);
+            checkEpicStatus(epicId);
+        }
+    }
+
+    private int newId() {
+        return ++id;
     }
 
     private void checkEpicStatus(int id) {

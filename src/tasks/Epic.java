@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -25,7 +25,7 @@ public class Epic extends Task {
     }
 
     public void removeSubTaskId(Subtask subtask) {
-        subTaskIds.remove(subtask);
+        subTaskIds.remove((Integer) subtask.getId());
     }
 
     @Override
