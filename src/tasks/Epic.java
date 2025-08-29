@@ -11,8 +11,12 @@ public class Epic extends Task {
         super(name, description);
     }
 
-    public Epic(String name, int id, String description, ArrayList<Integer> subTaskIds) {
-        super(name, id, description);
+    public Epic(String name, String description, int id) {
+        super(name, description, id);
+    }
+
+    public Epic(String name, String description, int id, ArrayList<Integer> subTaskIds) {
+        super(name, description, id);
         this.subTaskIds = subTaskIds;
     }
 
@@ -32,16 +36,13 @@ public class Epic extends Task {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-
         Epic epic = (Epic) o;
-        return Objects.equals(subTaskIds, epic.subTaskIds);
+        return super.equals(epic);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + Objects.hashCode(subTaskIds);
-        return result;
+        return Objects.hash(super.hashCode(), subTaskIds);
     }
 
     @Override

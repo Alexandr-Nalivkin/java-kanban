@@ -1,5 +1,7 @@
 package tasks;
 
+import java.util.Objects;
+
 public class Task {
 
     protected String name;
@@ -12,13 +14,13 @@ public class Task {
         this.description = description;
     }
 
-    public Task(String name, int id, String description) {
+    public Task(String name, String description, int id) {
         this(name, description);
         this.id = id;
     }
 
     public Task(String name, String description, int id, TaskStatus status) {
-        this(name, id, description);
+        this(name, description, id);
         this.status = status;
     }
 

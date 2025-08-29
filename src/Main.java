@@ -1,14 +1,17 @@
+import manager.InMemoryTaskManager;
 import manager.TaskManager;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 import tasks.TaskStatus;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        TaskManager manager = new TaskManager();
+        /*TaskManager manager = new InMemoryTaskManager();
         Task task1 = new Task("PlanA", "123");
         Task task2 = new Task("PlanB", "1234");
 
@@ -61,7 +64,17 @@ public class Main {
 
         manager.removeSubtaskById(8);
         System.out.println(manager.getListAllSubtask());
-        System.out.println(manager.getListAllEpic());
+        System.out.println(manager.getListAllEpic());*/
 
+        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
+        for (int i = 1; i < 11; i++) {
+            Task task = new Task("name" + i, "discription" + i);
+            inMemoryTaskManager.createNewTask(task);
+            inMemoryTaskManager.getTaskById(i);
+        }
+        ArrayList<Task> history = inMemoryTaskManager.getHistory();
+        for (int i = 0; i < history.size(); i++) {
+            System.out.println(history.get(i));
+        }
     }
 }
