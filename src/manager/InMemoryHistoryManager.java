@@ -4,22 +4,20 @@ import tasks.Task;
 
 import java.util.ArrayList;
 
-public class InMemoryHistoryManager implements HistoryManager{
+public class InMemoryHistoryManager implements HistoryManager {
     private ArrayList<Task> history = new ArrayList<>();
+    static final int MAX_SIZE = 10;
 
     @Override
     public void add(Task task) {
-        if (history.size() < 10) {
-            history.add(task);
-        } else {
+        if (history.size() >= MAX_SIZE) {
             history.remove(0);
-            history.add(task);
         }
+        history.add(task);
     }
+
     @Override
     public ArrayList<Task> getHistory() {
-        return history;
+        return new ArrayList<>(history);
     }
-
-
 }
