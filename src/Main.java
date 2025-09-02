@@ -66,7 +66,7 @@ public class Main {
         System.out.println(manager.getListAllSubtask());
         System.out.println(manager.getListAllEpic());*/
 
-        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
+        /*InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
         for (int i = 1; i < 11; i++) {
             Task task = new Task("name" + i, "discription" + i);
             inMemoryTaskManager.createNewTask(task);
@@ -75,6 +75,6 @@ public class Main {
         ArrayList<Task> history = inMemoryTaskManager.getHistory();
         for (int i = 0; i < history.size(); i++) {
             System.out.println(history.get(i));
-        }
+        }*/
     }
 }

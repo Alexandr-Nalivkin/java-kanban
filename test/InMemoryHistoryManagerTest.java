@@ -12,10 +12,9 @@ public class InMemoryHistoryManagerTest {
     @Test
     void historyManagerAddTasksAndGetHistory() {
         for (int i = 1; i < 11; i++) {
-            Task task = new Task("name" + i, "description" + i);
+            Task task = new Task("name" + i, "description" + i, i);
             historyManager.add(task);
         }
-        assertNotNull(historyManager.getHistory());
         assertEquals(1, historyManager.getHistory().get(0).getId());
         assertEquals("name1", historyManager.getHistory().get(0).getName());
         assertEquals(10, historyManager.getHistory().get(9).getId());

@@ -46,4 +46,6 @@ public interface TaskManager {
     void removeSubtaskById(int subtaskIdForRemove);
 
     ArrayList<Task> getHistory();
+
+    void setId(int i);
 }

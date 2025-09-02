@@ -172,6 +172,11 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private int newId() {
         return ++id;
     }
