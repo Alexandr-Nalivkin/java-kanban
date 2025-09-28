@@ -20,4 +20,14 @@ public class InMemoryHistoryManager implements HistoryManager {
     public ArrayList<Task> getHistory() {
         return new ArrayList<>(history);
     }
+
+    private static class Node {
+        Task task;
+        Node prev;
+        Node next;
+
+        Node(Task task) {
+            this.task = task;
+        }
+    }
 }
