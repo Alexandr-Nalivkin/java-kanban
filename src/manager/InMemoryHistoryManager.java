@@ -3,22 +3,33 @@ package manager;
 import tasks.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private ArrayList<Task> history = new ArrayList<>();
-    static final int MAX_SIZE = 10;
+    private final Map<Integer, Node> nodeMap = new HashMap<>();
+    private Node head;
+    private Node tail;
 
     @Override
     public void add(Task task) {
-        if (history.size() >= MAX_SIZE) {
-            history.remove(0);
-        }
-        history.add(task);
+
     }
 
     @Override
     public ArrayList<Task> getHistory() {
         return new ArrayList<>(history);
+    }
+
+    private void linkLast(Node newNode) {
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
     }
 
     private static class Node {
