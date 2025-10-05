@@ -63,7 +63,9 @@ class InMemoryTaskManagerTest {
     void testRemoveAllSubtask() {
         taskManager.removeAllSubtask();
         ArrayList<Subtask> subtasks = taskManager.getListAllSubtask();
+        ArrayList<Integer> subtaskIds = taskManager.getEpicById(2).getSubTaskIds();
         assertTrue(subtasks.isEmpty());
+        assertFalse(subtaskIds.contains(3));
     }
 
     @Test
