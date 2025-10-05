@@ -1,5 +1,6 @@
 import manager.Managers;
 import manager.TaskManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tasks.Epic;
@@ -112,23 +113,29 @@ class InMemoryTaskManagerTest {
 
     @Test
     void testRemoveTaskById() {
+        taskManager.getTaskById(1);
         taskManager.removeTaskById(1);
         assertNull(taskManager.getTaskById(1));
+        assertTrue(taskManager.getHistory().isEmpty());
     }
 
     @Test
     void testRemoveEpicById() {
+        Epic epic = taskManager.getEpicById(2);
         taskManager.removeEpicById(2);
         assertNull(taskManager.getEpicById(2));
         assertNull(taskManager.getSubtaskById(3));
+        assertFalse(taskManager.getHistory().contains(epic));
     }
 
     @Test
     void testRemoveSubtaskById() {
+        Subtask subtask = taskManager.getSubtaskById(3);
         taskManager.removeSubtaskById(3);
         ArrayList<Integer> subtaskIds = taskManager.getEpicById(2).getSubTaskIds();
         assertNull(taskManager.getSubtaskById(3));
         assertFalse(subtaskIds.contains(3));
+        assertFalse(taskManager.getHistory().contains(subtask));
     }
 
 

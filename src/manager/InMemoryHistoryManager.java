@@ -14,6 +14,10 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
+        if (task == null) {
+            return;
+        }
+
         int taskId = task.getId();
 
         if (nodeMap.containsKey(taskId)) {
