@@ -3,15 +3,12 @@ import manager.TaskManager;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
-import tasks.TaskStatus;
-
-import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        /*TaskManager manager = new InMemoryTaskManager();
+        TaskManager manager = new InMemoryTaskManager();
         Task task1 = new Task("PlanA", "123");
         Task task2 = new Task("PlanB", "1234");
 
@@ -38,7 +35,7 @@ public class Main {
         System.out.println(manager.getListAllEpic());
         System.out.println(manager.getListAllSubtask());
 
-        Task updateTask1 = new Task("PlanAN", task1.getId(), "156");
+        /*Task updateTask1 = new Task("PlanAN", task1.getId(), "156");
         manager.updateTask(updateTask1);
         System.out.println(manager.getListAllTask());
 
