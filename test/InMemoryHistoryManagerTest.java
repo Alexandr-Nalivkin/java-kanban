@@ -1,38 +1,46 @@
 import manager.HistoryManager;
 import manager.Managers;
 import org.junit.jupiter.api.Test;
+import tasks.Epic;
+import tasks.Subtask;
 import tasks.Task;
+import tasks.TaskStatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InMemoryHistoryManagerTest {
     HistoryManager historyManager = Managers.getDefaultHistory();
 
+    Task task = new Task("name", "description", 1, TaskStatus.NEW);
+    Epic epic = new Epic("name", "description", 2);
+    Subtask subtask = new Subtask("name", "description", 3, TaskStatus.NEW, 2);
+
     @Test
-    void historyManagerAddTasksAndGetHistory() {
-        for (int i = 1; i < 11; i++) {
-            Task task = new Task("name" + i, "description" + i, i);
-            historyManager.add(task);
-        }
+    void testHistoryManagerAddTasksAndGetHistory() {
+        historyManager.add(task);
+        historyManager.add(epic);
+        historyManager.add(subtask);
+        assertEquals(3, historyManager.getHistory().size());
         assertEquals(1, historyManager.getHistory().get(0).getId());
-        assertEquals("name1", historyManager.getHistory().get(0).getName());
-        assertEquals(10, historyManager.getHistory().get(9).getId());
-        assertEquals("name10", historyManager.getHistory().get(9).getName());
-        assertEquals(5, historyManager.getHistory().get(4).getId());
-        assertEquals("name5", historyManager.getHistory().get(4).getName());
+        assertEquals(2, historyManager.getHistory().get(1).getId());
+        assertEquals(3, historyManager.getHistory().get(2).getId());
     }
 
     @Test
-    void historyManagerStoresTheHistoryOfChanges() {
-        Task task1 = new Task("name1", "description", 1);
-        historyManager.add(task1);
-        Task task2 = new Task("name2", "description", 1);
-        historyManager.add(task2);
-        assertEquals(2, historyManager.getHistory().size());
-        assertEquals(1, historyManager.getHistory().get(0).getId());
-        assertEquals("name1", historyManager.getHistory().get(0).getName());
-        assertEquals(1, historyManager.getHistory().get(1).getId());
-        assertEquals("name2", historyManager.getHistory().get(1).getName());
+    void testHistoryManagerRemoveDuplicates() {
+        historyManager.add(task);
+        historyManager.add(task);
+        historyManager.add(task);
+        assertEquals(1, historyManager.getHistory().size());
+    }
+
+    @Test
+    void testHistoryManagerRemoveById() {
+        historyManager.add(task);
+        historyManager.remove(1);
+        historyManager.add(epic);
+        historyManager.remove(2);
+        assertTrue(historyManager.getHistory().isEmpty());
     }
 }
