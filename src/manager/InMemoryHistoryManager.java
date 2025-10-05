@@ -37,6 +37,15 @@ public class InMemoryHistoryManager implements HistoryManager {
         return new ArrayList<>(history);
     }
 
+    @Override
+    public void remove(int id) {
+        Node nodeToRemove = nodeMap.get(id);
+        if (nodeToRemove != null) {
+            removeNode(nodeToRemove);
+            nodeMap.remove(id);
+        }
+    }
+
     private void linkLast(Node newNode) {
         if (head == null) {
             head = newNode;
