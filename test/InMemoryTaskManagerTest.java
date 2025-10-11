@@ -46,25 +46,31 @@ class InMemoryTaskManagerTest {
 
     @Test
     void testRemoveAllTask() {
+        taskManager.getTaskById(1);
         taskManager.removeAllTask();
         ArrayList<Task> tasks = taskManager.getListAllTask();
         assertTrue(tasks.isEmpty());
+        assertTrue(taskManager.getHistory().isEmpty());
     }
 
     @Test
     void testRemoveAllEpic() {
+        taskManager.getEpicById(2);
         taskManager.removeAllEpic();
         ArrayList<Epic> epics = taskManager.getListAllEpic();
         assertTrue(epics.isEmpty());
+        assertTrue(taskManager.getHistory().isEmpty());
     }
 
     @Test
     void testRemoveAllSubtask() {
+        Subtask subtask = taskManager.getSubtaskById(3);
         taskManager.removeAllSubtask();
         ArrayList<Subtask> subtasks = taskManager.getListAllSubtask();
         ArrayList<Integer> subtaskIds = taskManager.getEpicById(2).getSubTaskIds();
         assertTrue(subtasks.isEmpty());
         assertFalse(subtaskIds.contains(3));
+        assertFalse(taskManager.getHistory().contains(subtask));
     }
 
     @Test

@@ -25,7 +25,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             nodeMap.remove(taskId);
         }
 
-        Node newNode = new Node(task);
+        Node newNode = new Node(task, tail, null);
         linkLast(newNode);
         nodeMap.put(taskId, newNode);
     }
@@ -43,39 +43,34 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        Node nodeToRemove = nodeMap.get(id);
-        if (nodeToRemove != null) {
-            removeNode(nodeToRemove);
-            nodeMap.remove(id);
-        }
+        Node nodeToRemove = nodeMap.remove(id);
+        removeNode(nodeToRemove);
+        nodeMap.remove(id);
     }
 
     private void linkLast(Node newNode) {
         if (head == null) {
             head = newNode;
-            tail = newNode;
         } else {
             tail.next = newNode;
-            newNode.prev = tail;
-            tail = newNode;
         }
+        tail = newNode;
     }
 
     private void removeNode(Node node) {
-        if (node.prev != null) {
-            node.prev.next = node.next;
-        } else {
-            head = node.next;
-        }
+        if (node != null) {
+            if (node.prev != null) {
+                node.prev.next = node.next;
+            } else {
+                head = node.next;
+            }
 
-        if (node.next != null) {
-            node.next.prev = node.prev;
-        } else {
-            tail = node.prev;
+            if (node.next != null) {
+                node.next.prev = node.prev;
+            } else {
+                tail = node.prev;
+            }
         }
-
-        node.prev = null;
-        node.next = null;
     }
 
     private static class Node {
@@ -83,8 +78,10 @@ public class InMemoryHistoryManager implements HistoryManager {
         Node prev;
         Node next;
 
-        Node(Task task) {
+        public Node(Task task, Node prev, Node next) {
             this.task = task;
+            this.prev = prev;
+            this.next = next;
         }
     }
 }
