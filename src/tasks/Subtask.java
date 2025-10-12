@@ -1,6 +1,5 @@
 package tasks;
 
-import java.util.Objects;
 
 public class Subtask extends Task {
 
@@ -20,18 +19,15 @@ public class Subtask extends Task {
         return epicId;
     }
 
-    public void setEpicId(int epicId) {
-        this.epicId = epicId;
-    }
-
     @Override
     public String toString() {
         return "Tasks.Subtask{" +
                 "epicId=" + epicId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", id=" + id +
+                ", id=" + getId() +
                 ", status=" + status +
                 '}';
     }
+
 }

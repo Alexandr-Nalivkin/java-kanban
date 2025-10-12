@@ -6,7 +6,7 @@ public class Task {
 
     protected String name;
     protected String description;
-    protected int id;
+    private int id;
     protected TaskStatus status = TaskStatus.NEW;
 
     public Task(String name, String description) {
@@ -28,17 +28,11 @@ public class Task {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public int getId() {
         return id;
