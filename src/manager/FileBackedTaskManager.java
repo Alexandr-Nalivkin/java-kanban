@@ -34,9 +34,63 @@ public class FileBackedTaskManager extends  InMemoryTaskManager implements TaskM
         save();
     }
 
+    @Override
+    public void updateTask(Task updateTask) {
+        super.updateTask(updateTask);
+        save();
+    }
+
+    @Override
+    public void updateEpic(Epic updateEpic) {
+        super.updateEpic(updateEpic);
+        save();
+    }
+
+    @Override
+    public void updateSubtask(Subtask updateSubtask) {
+        super.updateSubtask(updateSubtask);
+        save();
+    }
+
+    @Override
+    public void removeTaskById(int id) {
+        super.removeTaskById(id);
+        save();
+    }
+
+    @Override
+    public void removeEpicById(int id) {
+        super.removeEpicById(id);
+        save();
+    }
+
+    @Override
+    public void removeSubtaskById(int subtaskIdForRemove) {
+        super.removeSubtaskById(subtaskIdForRemove);
+        save();
+    }
+
+    @Override
+    public void removeAllTask() {
+        super.removeAllTask();
+        save();
+    }
+
+    @Override
+    public void removeAllEpic() {
+        super.removeAllEpic();
+        save();
+    }
+
+    @Override
+    public void removeAllSubtask() {
+        super.removeAllSubtask();
+        save();
+    }
+
     private void save() {
         try (Writer writer = new FileWriter(file)) {
-            writer.write("id,type,name,status,description,epic\n");
+            writer.write("id,type,name,status,description,epicId\n");
 
             for (Task task: getListAllTask()) {
                 writer.write(toString(task) + "\n");
