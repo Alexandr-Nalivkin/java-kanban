@@ -133,7 +133,13 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
                 switch (task.getType()) {
                     case TASK -> manager.tasks.put(taskId, task);
                     case EPIC -> manager.epics.put(taskId, (Epic) task);
-                    case SUBTASK -> manager.subtasks.put(taskId, (Subtask) task);
+                    case SUBTASK -> {
+                        manager.subtasks.put(taskId, (Subtask) task);
+                        Epic subtaskEpic = manager.epics.get(((Subtask) task).getEpicId());
+                        if (subtaskEpic != null) {
+                            subtaskEpic.addSubtaskId(task.getId());
+                        }
+                    }
                     default -> throw new IllegalArgumentException("Неизвестный тип задачи");
                 }
                 if (taskId > manager.id) {
